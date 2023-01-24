@@ -36,7 +36,7 @@ const ChatUi = () => {
   }, []);
 
   const fetchHistory = (id) => {
-    // setUserId(id);
+    setUserId(id);
     // console.log(id, "kidddddddddd");
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNiZTRkMjE4MGRkMjFiMjM4ZTdjMjRmIiwiaWF0IjoxNjczODc0MjU3LCJleHAiOjE2NzY0NjYyNTd9.YHZjuuIiWINgNbk94YNO5nbl0vjc3a6sXIxsGGuBgHA";
@@ -55,7 +55,7 @@ const ChatUi = () => {
   };
 
   const pushMsg = () => {
-    console.log(userId, "iddddddddd");
+    // console.log(userId, "iddddddddd");
     let data = new FormData();
     data.append("to_send", userId);
     data.append("message", message);
@@ -74,13 +74,13 @@ const ChatUi = () => {
       <Container>
         <RoomBox>
           {data.map((elm) => {
-            // console.log(elm,'user id')
             return (
               <>
                 <UserBox
                   onClick={() => {
                     fetchHistory(elm.members[1]);
-                    setUserId(elm.members[0]);
+                    // setUserId(elm.members[0]);
+                    console.log(elm._id, "RoomUser id");
                   }}
                 >
                   <LogoBtn>
