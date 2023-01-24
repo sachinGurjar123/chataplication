@@ -28,7 +28,7 @@ const ChatUi = () => {
       .then((res) => res.json())
       .then((result) => {
         setData(result.result.data);
-        // console.log(result.result.data);
+        console.log(result.result.data);
       });
   };
   useEffect(() => {
@@ -36,12 +36,12 @@ const ChatUi = () => {
   }, []);
 
   const fetchHistory = (id) => {
-    setUserId(id);
+    // setUserId(id);
     // console.log(id, "kidddddddddd");
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNiZTRkMjE4MGRkMjFiMjM4ZTdjMjRmIiwiaWF0IjoxNjczODc0MjU3LCJleHAiOjE2NzY0NjYyNTd9.YHZjuuIiWINgNbk94YNO5nbl0vjc3a6sXIxsGGuBgHA";
     fetch(
-      `http://172.105.41.247:5004/api/v1/chats/${id}?page_no=1&page_size=4`,
+      `http://172.105.41.247:5004/api/v1/chats/${id}?page_no=1&page_size=10`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -55,7 +55,7 @@ const ChatUi = () => {
   };
 
   const pushMsg = () => {
-    // console.log(userId, "iddddddddd");
+    console.log(userId, "iddddddddd");
     let data = new FormData();
     data.append("to_send", userId);
     data.append("message", message);
@@ -74,11 +74,13 @@ const ChatUi = () => {
       <Container>
         <RoomBox>
           {data.map((elm) => {
+            // console.log(elm,'user id')
             return (
               <>
                 <UserBox
                   onClick={() => {
                     fetchHistory(elm.members[1]);
+                    setUserId(elm.members[0]);
                   }}
                 >
                   <LogoBtn>
@@ -100,7 +102,7 @@ const ChatUi = () => {
         </RoomBox>
         <HistoryBox>
           {mas.map((elm) => {
-            console.log(elm, "uuuuuu");
+            // console.log(elm.sender_user._id, "uuuuuu");
             return elm.sender_user._id === userId ? (
               <SendMsg>{elm.message}</SendMsg>
             ) : (
