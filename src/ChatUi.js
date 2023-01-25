@@ -20,8 +20,8 @@ const ChatUi = () => {
   const [mas, setMas] = useState([]);
   const [userId, setUserId] = useState("");
   const [message, setMessage] = useState("");
-  const [activeRoomMessages, setActiveRoomMessages] = useState([]);
-  const activeRoomMessagesRef = useRef();
+  // const [activeRoomMessages, setActiveRoomMessages] = useState([]);
+  // const activeRoomMessagesRef = useRef();
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNiYmQ1ZWY3NDVhNmNmNTE5ZWE3ZDQyIiwiaWF0IjoxNjc0MTMxNzU1LCJleHAiOjE2NzY3MjM3NTV9.4-kTHPyMq1DYGsBgm2fGnOETVyCKpAUS5-DKWqyiGlU";
   const fetchData = () => {
@@ -35,7 +35,7 @@ const ChatUi = () => {
       .then((res) => res.json())
       .then((result) => {
         setData(result.result.data);
-        // console.log(result.result.data);
+        console.log(result.result.data);
       });
   };
   useEffect(() => {
@@ -77,12 +77,33 @@ const ChatUi = () => {
       body: data,
     });
   };
-  // const handleUpdateActiveRoomMessages = (list) => {
-  //   setActiveRoomMessages(list);
-  //   activeRoomMessagesRef.current = list;
-  // };
+
   const handleReceivedMessage = (event) => {
-    console.log(JSON.parse(event), "kkkkkkkkkkkkkkkkkkkkkkkkkkk");
+    const newMsg = JSON.parse(event);
+    const newMsg1 = newMsg.data.message;
+    // setActiveRoomMessages(event);
+    // data.map((elm) => {
+    // if (elm._id === newMsg.data.chat._id) {
+    // console.log(data, "sam and push message");
+    // }
+    // });
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNiZTRkMjE4MGRkMjFiMjM4ZTdjMjRmIiwiaWF0IjoxNjczODc0MjU3LCJleHAiOjE2NzY0NjYyNTd9.YHZjuuIiWINgNbk94YNO5nbl0vjc3a6sXIxsGGuBgHA";
+    fetch(
+      `http://172.105.41.247:5004/api/v1/chats/${newMsg.data.chat._id}?page_no=1&page_size=10`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        // setMas(result.result.data.reverse());
+        const oldMsg = result.result.data;
+        oldMsg.push(newMsg1);
+        fetchHistory(newMsg.data.chat._id);
+        // console.log(oldMsg, "text messages_____--------__----");
+      });
   };
   return (
     <div>
