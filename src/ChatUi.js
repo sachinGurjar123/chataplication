@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import SocketConnection from "./SocketConnection";
 import {
   Container,
-  HistoryBox,
+  HistoryBoxContainer,
   UserBox,
   LogoBtn,
   NameDiv,
@@ -11,6 +12,7 @@ import {
   InputDiv,
   SendBtn,
   GetMsg,
+  HistoryBox,
 } from "./style";
 
 const ChatUi = () => {
@@ -18,6 +20,8 @@ const ChatUi = () => {
   const [mas, setMas] = useState([]);
   const [userId, setUserId] = useState("");
   const [message, setMessage] = useState("");
+  const [activeRoomMessages, setActiveRoomMessages] = useState([]);
+  const activeRoomMessagesRef = useRef();
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNiYmQ1ZWY3NDVhNmNmNTE5ZWE3ZDQyIiwiaWF0IjoxNjc0MTMxNzU1LCJleHAiOjE2NzY3MjM3NTV9.4-kTHPyMq1DYGsBgm2fGnOETVyCKpAUS5-DKWqyiGlU";
   const fetchData = () => {
@@ -31,7 +35,7 @@ const ChatUi = () => {
       .then((res) => res.json())
       .then((result) => {
         setData(result.result.data);
-        console.log(result.result.data);
+        // console.log(result.result.data);
       });
   };
   useEffect(() => {
@@ -40,7 +44,7 @@ const ChatUi = () => {
 
   const fetchHistory = (id) => {
     // setUserId(id);
-    console.log(id, "kidddddddddd");
+    // console.log(id, "kidddddddddd");
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNiZTRkMjE4MGRkMjFiMjM4ZTdjMjRmIiwiaWF0IjoxNjczODc0MjU3LCJleHAiOjE2NzY0NjYyNTd9.YHZjuuIiWINgNbk94YNO5nbl0vjc3a6sXIxsGGuBgHA";
     fetch(
@@ -73,9 +77,16 @@ const ChatUi = () => {
       body: data,
     });
   };
-
+  // const handleUpdateActiveRoomMessages = (list) => {
+  //   setActiveRoomMessages(list);
+  //   activeRoomMessagesRef.current = list;
+  // };
+  const handleReceivedMessage = (event) => {
+    console.log(JSON.parse(event), "kkkkkkkkkkkkkkkkkkkkkkkkkkk");
+  };
   return (
     <div>
+      <SocketConnection handleReceivedMessage={handleReceivedMessage} />
       <Container>
         <RoomBox>
           {data.map((elm) => {
@@ -110,15 +121,17 @@ const ChatUi = () => {
             );
           })}
         </RoomBox>
-        <HistoryBox>
-          {mas.map((elm) => {
-            // console.log(elm.sender_user._id, "uuuuuu");
-            return elm.sender_user._id === userId ? (
-              <SendMsg>{elm.message}</SendMsg>
-            ) : (
-              <GetMsg>{elm.message}</GetMsg>
-            );
-          })}
+        <HistoryBoxContainer>
+          <HistoryBox>
+            {mas.map((elm) => {
+              // console.log(elm.sender_user._id, "uuuuuu");
+              return elm.sender_user._id !== userId ? (
+                <SendMsg>{elm.message}</SendMsg>
+              ) : (
+                <GetMsg>{elm.message}</GetMsg>
+              );
+            })}
+          </HistoryBox>
           <InputDiv>
             <Input
               type="text"
@@ -134,7 +147,7 @@ const ChatUi = () => {
               <strong>send</strong>
             </SendBtn>
           </InputDiv>
-        </HistoryBox>
+        </HistoryBoxContainer>
       </Container>
     </div>
   );

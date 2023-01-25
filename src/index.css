@@ -53,5 +53,5 @@ body {
   cursor: pointer;
   justify-content: center;
   float: right;
-  
+ flex-direction: column; 
 }

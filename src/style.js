@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   border-radius: 5px;
-  height: 500px;
+  height: 450px;
   display: grid;
   grid-template-columns: 2fr 3fr;
   grid-template-rows: 1fr;
@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const RoomBox = styled.div`
   border: 2px solid green;
   border-radius: 5px;
-  height: 100%;
+  height: 450px;
   overflow-y: scroll;
   overflow-x: hidden;
 `;
@@ -34,12 +34,10 @@ export const NameDiv = styled.div`
   flex-direction: column;
 `;
 
-export const HistoryBox = styled.div`
+export const HistoryBoxContainer = styled.div`
   border: 2px solid green;
   border-radius: 5px;
-  height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  height: 450px;
 `;
 
 export const SendMsg = styled.p`
@@ -55,22 +53,22 @@ export const SendMsg = styled.p`
   margin-top: -1px;
 `;
 export const Input = styled.input`
-  width: 90%;
+  width: 85%;
   border-radius: 10px;
   height: 25px;
 `;
 export const InputDiv = styled.div`
-  width: 59%;
+  width: 60%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 540px;
+  top: 495px;
   height: 40px;
   background-color: rgb(97, 97, 97);
 `;
 export const SendBtn = styled.button`
-  padding: 10px 5px;
+  padding: 10px 20px;
   margin-left: 5px;
   border-radius: 10px;
   cursor: pointer;
@@ -85,4 +83,10 @@ export const GetMsg = styled.p`
   //   border: 2px solid red;
   position: relative;
   box-sizing: border-box;
+`;
+export const HistoryBox = styled.div`
+  height: 420px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  // border: 2px solid red;
 `;

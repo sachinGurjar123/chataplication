@@ -117,13 +117,15 @@ const MessengersList = () => {
     activeRoomMessagesRef.current = list;
   };
   const handleReceivedMessage = (event) => {
-    console.log("Received message", event);
+    // console.log("Received message", event);
     let { data } = typeof event === "string" ? JSON.parse(event) : event;
     if (data?.chat?.members && data.chat.members.includes(user.id)) {
       let { chat, message } = data;
       if (roomsIdsRef.current.includes(chat.id)) {
         if (activeRoomRef.current && activeRoomRef.current.id == chat.id) {
-          handleUpdateActiveRoomMessages(activeRoomMessagesRef.current.concat([message]));
+          handleUpdateActiveRoomMessages(
+            activeRoomMessagesRef.current.concat([message])
+          );
         } else {
           markNewMessageToRoom(chat.id);
         }
@@ -165,10 +167,19 @@ const MessengersList = () => {
   };
   const rooms = roomsList.length ? (
     <div className="col-12 d-flex p-3" key={roomsList.length}>
-      <ChatRoomsList items={roomsList} handleUpdateActiveRoom={handleUpdateActiveRoom} activeRoom={activeRoom} />
+      <ChatRoomsList
+        items={roomsList}
+        handleUpdateActiveRoom={handleUpdateActiveRoom}
+        activeRoom={activeRoom}
+      />
       <div className="col-12 col-lg-9 d-flex flex-column ">
-        <Messages items={activeRoomMessages || []} loader={messagesListLoader} />
-        {typeof activeRoom.id == "string" ? <SendMessage handleMessageSend={handleMessageSend} /> : null}
+        <Messages
+          items={activeRoomMessages || []}
+          loader={messagesListLoader}
+        />
+        {typeof activeRoom.id == "string" ? (
+          <SendMessage handleMessageSend={handleMessageSend} />
+        ) : null}
       </div>
     </div>
   ) : (
