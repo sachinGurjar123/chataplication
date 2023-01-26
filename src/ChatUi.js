@@ -23,10 +23,10 @@ const ChatUi = () => {
   // const [activeRoomMessages, setActiveRoomMessages] = useState([]);
   // const activeRoomMessagesRef = useRef();
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNiYmQ1ZWY3NDVhNmNmNTE5ZWE3ZDQyIiwiaWF0IjoxNjc0MTMxNzU1LCJleHAiOjE2NzY3MjM3NTV9.4-kTHPyMq1DYGsBgm2fGnOETVyCKpAUS5-DKWqyiGlU";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNkMjA5ZTNkZTJlYTM0ZjU2YjY2YWJmIiwiaWF0IjoxNjc0NzExODE0LCJleHAiOjE2NzczMDM4MTR9.g5Jj_eJqhqGZxg-Mx4nx4Dzbqyt_9EyEtIFoGnpWe4E";
   const fetchData = () => {
     fetch(
-      "http://172.105.41.247:5004/api/v1/chats?page_no=1&limit=10&user_id=63bbd5ef745a6cf519ea7d42",
+      "http://172.105.41.247:5004/api/v1/chats?page_no=1&limit=10&user_id=63d209e3de2ea34f56b66abf",
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -46,7 +46,7 @@ const ChatUi = () => {
     // setUserId(id);
     // console.log(id, "kidddddddddd");
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNiZTRkMjE4MGRkMjFiMjM4ZTdjMjRmIiwiaWF0IjoxNjczODc0MjU3LCJleHAiOjE2NzY0NjYyNTd9.YHZjuuIiWINgNbk94YNO5nbl0vjc3a6sXIxsGGuBgHA";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNkMjA5ZTNkZTJlYTM0ZjU2YjY2YWJmIiwiaWF0IjoxNjc0NzExODE0LCJleHAiOjE2NzczMDM4MTR9.g5Jj_eJqhqGZxg-Mx4nx4Dzbqyt_9EyEtIFoGnpWe4E";
     fetch(
       `http://172.105.41.247:5004/api/v1/chats/${id}?page_no=1&page_size=10`,
       {
@@ -70,7 +70,7 @@ const ChatUi = () => {
     data.append("is_file", false);
     // data.append("send_to_role", "vendor");
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNiYmQ1ZWY3NDVhNmNmNTE5ZWE3ZDQyIiwiaWF0IjoxNjc0NjI2OTE3LCJleHAiOjE2NzcyMTg5MTd9.MZ6406QOHM2HBCGbAGX9-y0h-U4cdC9fuosFUw_NSfA";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNkMjA5ZTNkZTJlYTM0ZjU2YjY2YWJmIiwiaWF0IjoxNjc0NzExODE0LCJleHAiOjE2NzczMDM4MTR9.g5Jj_eJqhqGZxg-Mx4nx4Dzbqyt_9EyEtIFoGnpWe4E";
     fetch("http://172.105.41.247:5004/api/v1/chats/send_message", {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
@@ -155,6 +155,7 @@ const ChatUi = () => {
           </HistoryBox>
           <InputDiv>
             <Input
+              value={message}
               type="text"
               onChange={(event) => {
                 setMessage(event.target.value);
@@ -163,6 +164,7 @@ const ChatUi = () => {
             <SendBtn
               onClick={() => {
                 pushMsg();
+                setMessage('')
               }}
             >
               <strong>send</strong>
