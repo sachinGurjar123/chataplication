@@ -48,10 +48,11 @@ body {
 #messages > li:nth-child(odd) {
   background: #efefef;
 }
+
 .dks{
-  background-color: rgb(138, 65, 65);
-  cursor: pointer;
-  justify-content: center;
-  float: right;
- flex-direction: column; 
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+ 
+  background-color: aquamarine;
 }
